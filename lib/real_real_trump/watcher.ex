@@ -14,7 +14,7 @@ defmodule RealRealTrump.Watcher do
 
 
   def handle_info(:track, state) do
-    start_stream
+    # start_stream
     {:noreply, state}
   end
 
@@ -28,16 +28,30 @@ defmodule RealRealTrump.Watcher do
     end)
   end
 
-  def retweet_if_trump(tweet) do
+  def tweet_if_trump(tweet) do
     IO.puts "Is this tweet from an Android device?"
     # IO.puts Enum.any?(users, &(&1 == tweet.user.id_str))
     if is_trump?(tweet) do
       IO.inspect tweet.retweeted_status
       IO.puts "IT TRUMP"
-      ExTwitter.retweet(tweet.id)
+      # ExTwitter.retweet(tweet.id)
+      # tweet_text = "#{random_boast} https://twitter.com/realDonaldTrump/status/#{tweet.id}"
+      # ExTwitter.update(tweet_text)
+      ExTwitter.update(tweet.text)
     else
       IO.puts "IT NOT TRUMP"
     end
+  end
+
+  def random_boast do
+    [
+      "it me",
+      "The real me",
+      "So true!",
+      "No substitutions",
+      "HA!",
+    ]
+    |> Enum.random
   end
 
   def is_trump?(tweet) do
