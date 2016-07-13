@@ -14,7 +14,7 @@ defmodule RealRealTrump.Watcher do
 
 
   def handle_info(:track, state) do
-    # start_stream
+    start_stream
     {:noreply, state}
   end
 
@@ -22,14 +22,14 @@ defmodule RealRealTrump.Watcher do
     spawn_link(fn ->
       stream = ExTwitter.stream_filter([follow: @trump_id], :infinity)
       IO.inspect "Watching my trump"
+      IO.puts "Is it Trump?"
       for tweet <- stream do
-        retweet_if_trump(tweet)
+        tweet_if_trump(tweet)
       end
     end)
   end
 
   def tweet_if_trump(tweet) do
-    IO.puts "Is this tweet from an Android device?"
     # IO.puts Enum.any?(users, &(&1 == tweet.user.id_str))
     if is_trump?(tweet) do
       IO.inspect tweet.retweeted_status
