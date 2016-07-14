@@ -30,7 +30,6 @@ defmodule RealRealTrump.Watcher do
   end
 
   def tweet_if_trump(tweet) do
-    # IO.puts Enum.any?(users, &(&1 == tweet.user.id_str))
     if is_trump?(tweet) do
       IO.inspect tweet.retweeted_status
       IO.puts "IT TRUMP"
@@ -41,17 +40,6 @@ defmodule RealRealTrump.Watcher do
     else
       IO.puts "IT NOT TRUMP"
     end
-  end
-
-  def random_boast do
-    [
-      "it me",
-      "The real me",
-      "So true!",
-      "No substitutions",
-      "HA!",
-    ]
-    |> Enum.random
   end
 
   def is_trump?(tweet) do
